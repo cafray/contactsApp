@@ -1,12 +1,14 @@
 import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native'
 import React, {useEffect, useState} from 'react'
 import { Ionicons } from '@expo/vector-icons';
-import ButaoPrincipal from '../componentes/ButaoPrincipal';
-import CampoTexto from '../componentes/CampoTexto';
+
+import useOne from '../servicos/OneContexto';
 
 import { useNavigation } from '@react-navigation/native';
 
 const EditarContacto = ({route}) => {
+
+  const{ editarContactoC, apagarContacto } = useOne();
 
   const navigation = useNavigation();
   const itensNav = route.params; 
@@ -27,27 +29,55 @@ const EditarContacto = ({route}) => {
    console.log(editarContacto);
   }, [editarContacto]);
   
+  const handleEditar = async (contacto) => {
+    try {
+
+     await editarContactoC(contacto);
+      console.log(contacto);
+      
+    } catch (error) {
+      console.log(error);
+    }
+    
+  }
+
+  const handleApagar = async (contacto) => {
+    try {
+
+      await apagarContacto(contacto);
+      console.log(contacto);
+      
+    } catch (error) {
+      console.log(error);
+    }
+    
+  }
+
   //const { item } = route.params;
 
   return (
     <View className="bg-[#111111] pt-6 flex-1">
         <View className="flex-row justify-between items-center">
-            <View>
+            <TouchableOpacity
+              onPress={() =>navigation.goBack()}
+            >
                 <Ionicons name="chevron-back" size={30} color="white" />
-            </View>
+            </TouchableOpacity>
             <View>
                 <Text className="text-white">Editar Contacto</Text>
             </View>
         <View>
         <TouchableOpacity className="bg-[#E76640] py-2 px-4 items-center rounded-xl"
-            //onPress={() => handleContacto(contacto)}
+            onPress={() => handleEditar(editarContacto)}
           >
             <Text className="text-white text-[12px] font-bold">Guardar</Text>
           </TouchableOpacity>
         </View>
-        <View>
+        <TouchableOpacity
+          onPress={() => handleApagar(editarContacto)}
+        >
             <Ionicons name="md-trash-bin" size={15} color="white" />
-        </View>
+        </TouchableOpacity>
         
         </View>
         <ScrollView className="px-3">

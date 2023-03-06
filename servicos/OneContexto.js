@@ -6,7 +6,7 @@ import { getAuth
     , signOut
     , onAuthStateChanged} from "firebase/auth";
 
-import { collection, setDoc, doc, updateDoc, getDocs } from "firebase/firestore"; 
+import { collection, setDoc, doc, updateDoc, getDocs, deleteDoc } from "firebase/firestore"; 
 
 import oneReducer,{ initialState } from "./oneReducer";
 
@@ -105,12 +105,28 @@ export const OneProvider = ({children}) => {
         });
     }
 
-    const editartContacto = (contacto) => {
+    const editarContactoC = async (contacto) => {
+        const { telefone } = contacto;
+
+        console.log("Contacto editar:", contacto);
+
+        const docRef = doc(db, "usuarios", state.usuarioID,"contactos", telefone);
         
+        await updateDoc(docRef,contacto)
+        .then(console.log("Contacto actualizado com sucesso"))
+        .catch((error) =>{console.log(error)});
+
     }
 
-    const apagarContacto = () => {
+    const apagarContacto = async (contacto) => {
 
+        const { telefone } = contacto;
+
+        const docRef = doc(db, "usuarios", state.usuarioID,"contactos", telefone);
+
+        await deleteDoc(docRef)
+        .then(console.log("Contacto apagado com sucesso"))
+        .catch((error) =>{console.log(error)});;
 
     }
 
@@ -122,7 +138,9 @@ export const OneProvider = ({children}) => {
         registroUsuario,
         adicionarContacto,
         listarContacto,
-        logarUsuario
+        logarUsuario,
+        apagarContacto,
+        editarContactoC
     }
 
     return <OneContexto.Provider value={value}>

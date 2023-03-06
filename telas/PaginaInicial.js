@@ -6,6 +6,7 @@ import ContactoSingular from '../componentes/ContactoSingular';
 import { useNavigation } from '@react-navigation/native'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Entypo } from '@expo/vector-icons';
 import useOne from '../servicos/OneContexto';
 
 const PaginaInicial = () => {
@@ -17,13 +18,13 @@ const PaginaInicial = () => {
     useLayoutEffect(() => {
        listarContacto();
        // console.log(contactos);
-     }, []);
+     }, [contactos]);
 
   return (
-    <View className="bg-[#111111] flex-1 pt-5 ">
+    <View className="bg-[#111111] flex-1 pt-5 relative">
       <View className="flex-row bg-[#1E1E1E] mx-2 rounded-xl">
         <TouchableOpacity className="flex-3 px-3 items-center justify-center"
-            onPress={() => {navigation.openDrawer()}}
+            onPress={() =>navigation.goBack()}
         >
           <Ionicons name="menu" size={35} color="white" />
         </TouchableOpacity>
@@ -34,7 +35,7 @@ const PaginaInicial = () => {
         <Ionicons name="ios-person-circle-outline" size={35} color="white" />
         </View>  
       </View>
-      <View className="flex-1">
+      <View className="flex-1 relative">
         <FlatList 
             data={contactos}
             numColumns= {1}
@@ -45,14 +46,18 @@ const PaginaInicial = () => {
               </TouchableOpacity>}
             keyExtractor={item => item.id}
           />
-          
+        
       </View>
-       
-      
+    
+      <View className="bg-[#E76640] absolute items-center h-[50px] w-[50px] bottom-[5] right-[6] rounded-full ">
+        <TouchableOpacity className="justify-center items-center pt-4"
+          onPress={() =>navigation.navigate('NovoContacto')}
+        >
+          <Entypo name="plus" size={20} color="white" />
+        </TouchableOpacity>
+      </View>
     </View>
   )
 }
 
 export default PaginaInicial
-
-const styles = StyleSheet.create({})

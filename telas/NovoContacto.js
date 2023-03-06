@@ -2,8 +2,11 @@ import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-nativ
 import React,{ useState } from 'react'
 import { Ionicons } from '@expo/vector-icons';
 import useOne from '../servicos/OneContexto';
+import { useNavigation } from '@react-navigation/native';
 
 const NovoContacto = () => {
+
+  const navigation = useNavigation();
 
   const { adicionarContacto } = useOne();
 
@@ -16,13 +19,14 @@ const NovoContacto = () => {
     departamento:'',
     cargo:'',
     telefone:'',
-    descricao:''
+    descricao:'',
+    favorito: false
   });
 
   const handleContacto = async (contacto) => {
     try {
 
-      adicionarContacto(contacto);
+     await adicionarContacto(contacto);
       console.log(contacto);
       
     } catch (error) {
@@ -34,9 +38,11 @@ const NovoContacto = () => {
   return (
     <View className="bg-[#111111] pt-6 flex-1">
         <View className="flex-row justify-between items-center">
-            <View>
+            <TouchableOpacity
+                onPress={() =>navigation.goBack()}
+            >
                 <Ionicons name="chevron-back" size={30} color="white" />
-            </View>
+            </TouchableOpacity>
             <View>
                 <Text className="text-white">Novo Contacto</Text>
             </View>

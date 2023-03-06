@@ -6,21 +6,22 @@ import OneStack from './OneStack';
 
 import NovoContacto from '../telas/NovoContacto';
 import EditarContacto from '../telas/EditarContacto';
+import useOne from '../servicos/OneContexto';
 
 const Drawer = createDrawerNavigator();
 
 const OneDrawer = () => {
+
+const { usuarioID } = useOne();
+
   return (
     <Drawer.Navigator
         screenOptions={{
             headerShown: false
         }}
         >
-        <Drawer.Screen name="PaginaLogin" component={PaginaLogin}/>
-        <Drawer.Screen name="EditarContacto" component={EditarContacto}/>
-        <Drawer.Screen name="NovoContacto" component={NovoContacto}/>
-        
-        <Drawer.Screen name="OneStack" component={OneStack}/>
+        {usuarioID ? <Drawer.Screen name="OneStack" component={OneStack}/>:<Drawer.Screen name="PaginaLogin" component={PaginaLogin}/>}
+
     </Drawer.Navigator>
   )
 }
