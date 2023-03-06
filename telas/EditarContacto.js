@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, ScrollView, Modal } from 'react-native'
 import React, {useEffect, useState} from 'react'
 import { Ionicons } from '@expo/vector-icons';
 
@@ -12,6 +12,8 @@ const EditarContacto = ({route}) => {
 
   const navigation = useNavigation();
   const itensNav = route.params; 
+
+  const [modalVisivel, setModalVisivel] = useState(false);
 
   const [editarContacto, setEditarContacto] = useState({
     tituloAcademico:itensNav.tituloAcademico,
@@ -74,7 +76,7 @@ const EditarContacto = ({route}) => {
           </TouchableOpacity>
         </View>
         <TouchableOpacity
-          onPress={() => handleApagar(editarContacto)}
+          onPress={() => setModalVisivel(true)}
         >
             <Ionicons name="md-trash-bin" size={15} color="white" />
         </TouchableOpacity>
@@ -163,6 +165,33 @@ const EditarContacto = ({route}) => {
               />
             </View>
       </ScrollView>
+
+      <Modal 
+        animationType='slide'
+        transparent={true}
+        style={{backgroundColor: 'rgba(0,0,0,0.7)'}}
+        visible={modalVisivel}
+        onRequestClose={()=> setModalVisivel(false)}
+      >
+        <View className="flex-1 justify-center items-center">
+          <View className="w-[300px] h-[200px] bg-black items-center">
+              <Text className="text-white text-20 font-bold py-3">Alerta</Text>
+              <Text className="text-white text-20 p-3">Voce Deseja Remover {editarContacto.nomeProprio} {editarContacto.apelido}</Text>
+              <Text className="text-white text-20 py-3">Esta Accao nao podera ser desfeita</Text>
+              <View className="flex-row space-x-5">
+                <TouchableOpacity className="bg-[#E76640] p-2 rounded-xl"
+                  onPress={() =>handleApagar(editarContacto)}
+                ><Text className="text-white">Remover</Text></TouchableOpacity>
+                <TouchableOpacity className="border-2 border-white p-2 rounded-xl"
+                  onPress={() =>setModalVisivel(false)}
+                ><Text className="text-white">Cancelar</Text></TouchableOpacity>
+              </View>
+              
+          </View> 
+          
+        </View>
+      </Modal>
+
     </View>
   )
 }
