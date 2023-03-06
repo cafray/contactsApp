@@ -19,7 +19,7 @@ const PaginaInicial = () => {
     useLayoutEffect(() => {
        listarContacto();
        // console.log(contactos);
-     }, [contactos]);
+     }, []);
 
   return (
     <View className="bg-[#111111] flex-1 pt-5 relative">

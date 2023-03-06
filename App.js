@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import OneDrawer from './componentes/OneDrawer';
 import { OneProvider } from './servicos/OneContexto';
-import { Appearance, useColorScheme } from 'react-native';
+import OneStack from './componentes/OneStack';
 
 //const Drawer = createDrawerNavigator();
 
