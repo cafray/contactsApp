@@ -130,6 +130,16 @@ export const OneProvider = ({children}) => {
 
     }
 
+    const sair = () =>{
+        signOut(auth).then(() => {
+            // Sign-out successful.
+            console.log("Usario logged out com sucesso");
+          }).catch((error) => {
+            // An error happened.
+            console.log(error);
+          });
+    }
+
     const value = {
         usuarioID: state.usuarioID,
         contacto: state.contacto,
@@ -140,7 +150,8 @@ export const OneProvider = ({children}) => {
         listarContacto,
         logarUsuario,
         apagarContacto,
-        editarContactoC
+        editarContactoC,
+        sair
     }
 
     return <OneContexto.Provider value={value}>

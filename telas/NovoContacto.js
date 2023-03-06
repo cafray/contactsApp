@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native'
 import React,{ useState } from 'react'
 import { Ionicons } from '@expo/vector-icons';
 import useOne from '../servicos/OneContexto';
@@ -36,7 +36,7 @@ const NovoContacto = () => {
   }
 
   return (
-    <View className="bg-[#111111] pt-6 flex-1">
+    <SafeAreaView className="bg-[#111111] pt-6 flex-1">
         <View className="flex-row justify-between items-center">
             <TouchableOpacity
                 onPress={() =>navigation.goBack()}
@@ -137,7 +137,7 @@ const NovoContacto = () => {
               />
             </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   )
 }
 

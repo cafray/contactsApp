@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View, FlatList} from 'react-native'
+import { ScrollView, StyleSheet, Text, View, FlatList, SafeAreaView} from 'react-native'
 import React, { useLayoutEffect} from 'react'
 import CampoTexto from '../componentes/CampoTexto'
 import { Ionicons } from '@expo/vector-icons';
@@ -22,7 +22,7 @@ const PaginaInicial = () => {
      }, []);
 
   return (
-    <View className="bg-[#111111] flex-1 pt-5 relative">
+    <SafeAreaView className="bg-[#111111] flex-1 pt-5 relative">
       <View className="flex-row bg-[#1E1E1E] mx-2 rounded-xl">
         <TouchableOpacity className="flex-3 px-3 items-center justify-center"
             onPress={() =>navigation.toggleDrawer()}
@@ -40,11 +40,16 @@ const PaginaInicial = () => {
         <FlatList 
             data={contactos}
             numColumns= {1}
-            renderItem={({item}) =><TouchableOpacity 
-              onPress={()=>navigation.navigate('EditarContacto',item)}
-            >
-              <ContactoSingular item={item}/>
-              </TouchableOpacity>}
+            renderItem={({item}) =><View className="flex-row justify-between">
+              <TouchableOpacity
+                onPress={()=>navigation.navigate('EditarContacto',item)}
+              >
+                <ContactoSingular item={item}/>
+              </TouchableOpacity>
+              <TouchableOpacity className="justify-center items-center p-5">
+                <Entypo name="star-outlined" size={24} color="white" />
+              </TouchableOpacity>
+              </View>}
             keyExtractor={item => item.id}
           />
         
@@ -57,7 +62,7 @@ const PaginaInicial = () => {
           <Entypo name="plus" size={20} color="white" />
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
 

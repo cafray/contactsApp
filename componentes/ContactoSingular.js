@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text,SafeAreaView } from 'react-native'
 import React from 'react'
 import { Entypo } from '@expo/vector-icons';
 
@@ -18,9 +18,7 @@ const ContactoSingular = (props) => {
             </View>
         </View>
       
-      <View className="justify-center items-center">
-        <Entypo name="star-outlined" size={24} color="white" />
-      </View>
+
     </View>
   )
 

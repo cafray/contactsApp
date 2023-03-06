@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity, ScrollView, Modal } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, ScrollView, Modal, SafeAreaView } from 'react-native'
 import React, {useEffect, useState} from 'react'
 import { Ionicons } from '@expo/vector-icons';
 
@@ -58,7 +58,7 @@ const EditarContacto = ({route}) => {
   //const { item } = route.params;
 
   return (
-    <View className="bg-[#111111] pt-6 flex-1">
+    <SafeAreaView className="bg-[#111111] pt-6 flex-1">
         <View className="flex-row justify-between items-center">
             <TouchableOpacity
               onPress={() =>navigation.goBack()}
@@ -192,7 +192,7 @@ const EditarContacto = ({route}) => {
         </View>
       </Modal>
 
-    </View>
+    </SafeAreaView>
   )
 }
 

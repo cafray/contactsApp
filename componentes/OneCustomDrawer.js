@@ -16,8 +16,18 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import useOne from '../servicos/OneContexto';
+import { useNavigation } from '@react-navigation/native';
 
 export default function OneCustomDrawer(props) {
+
+  const { sair } = useOne();
+  const navigation = useNavigation();
+
+  const handleSignOut = () =>{
+    sair();
+    navigation.navigate('PaginaLogin');
+  }
 
   const BASE_PATH =
     'https://raw.githubusercontent.com/AboutReact/sampleresource/master/';
@@ -35,7 +45,9 @@ export default function OneCustomDrawer(props) {
             
             <MaterialIcons name="keyboard-arrow-right" size={30} color="white" />
         </TouchableOpacity>
-        <TouchableOpacity className="flex-row justify-between items-center px-3">
+        <TouchableOpacity className="flex-row justify-between items-center px-3"
+          onPress={() => handleSignOut()}
+        >
           <View className="flex-row space-x-5 items-center justify-center">
             <MaterialCommunityIcons name="logout-variant" size={24} color="white" />
             <Text className="text-white text-[15px]">Sair</Text>
