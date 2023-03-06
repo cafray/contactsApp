@@ -1,20 +1,24 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import PaginaLogin from './telas/PaginaLogin';
+import PaginaInicial from './telas/PaginaInicial';
+import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import OneDrawer from './componentes/OneDrawer';
+import { OneProvider } from './servicos/OneContexto';
+import { Appearance, useColorScheme } from 'react-native';
+
+//const Drawer = createDrawerNavigator();
 
 export default function App() {
+  
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <OneProvider>
+      <NavigationContainer>
+        <OneDrawer />
+      </NavigationContainer>
+    </OneProvider>
+
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+

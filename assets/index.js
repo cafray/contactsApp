@@ -1,0 +1,1 @@
+export {default as LogoImagem} from "./AppLogo.png"
