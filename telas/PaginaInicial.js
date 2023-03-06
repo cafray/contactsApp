@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, View, FlatList, SafeAreaView} from 'react-native'
-import React, { useLayoutEffect} from 'react'
+import React, { useLayoutEffect, useState} from 'react'
 import CampoTexto from '../componentes/CampoTexto'
 import { Ionicons } from '@expo/vector-icons';
 import ContactoSingular from '../componentes/ContactoSingular';
@@ -12,14 +12,15 @@ import useOne from '../servicos/OneContexto';
 
 const PaginaInicial = () => {
 
-  const { contactos, listarContacto } = useOne();
+  const { contactos, listarContacto, toggleFavorito } = useOne();
+  //const [togglefav, setTogglefav] = useState();
 
     const navigation = useNavigation();
 
     useLayoutEffect(() => {
        listarContacto();
        // console.log(contactos);
-     }, []);
+     }, [contactos]);
 
   return (
     <SafeAreaView className="bg-[#111111] flex-1 pt-5 relative">
@@ -46,8 +47,10 @@ const PaginaInicial = () => {
               >
                 <ContactoSingular item={item}/>
               </TouchableOpacity>
-              <TouchableOpacity className="justify-center items-center p-5">
-                <Entypo name="star-outlined" size={24} color="white" />
+              <TouchableOpacity className="justify-center items-center p-5"
+                onPress={() =>toggleFavorito(item.id)}
+              >
+               {item.favorito ? <Entypo name="star-outlined" size={24} color="white" />:<Entypo name="star" size={24} color="white" />} 
               </TouchableOpacity>
               </View>}
             keyExtractor={item => item.id}

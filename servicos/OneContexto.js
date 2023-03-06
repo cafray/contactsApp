@@ -6,7 +6,7 @@ import { getAuth
     , signOut
     , onAuthStateChanged} from "firebase/auth";
 
-import { collection, setDoc, doc, updateDoc, getDocs, deleteDoc } from "firebase/firestore"; 
+import { collection, setDoc, doc, updateDoc, getDocs, deleteDoc, getDoc } from "firebase/firestore"; 
 
 import oneReducer,{ initialState } from "./oneReducer";
 
@@ -140,6 +140,24 @@ export const OneProvider = ({children}) => {
           });
     }
 
+    const toggleFavorito = async (id) =>{
+
+        console.log(id);
+        const docRef = doc(db, "usuarios", state.usuarioID,"contactos", id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            console.log("Document data:", docSnap.data().favorito);
+            const togglefav = docSnap.data().favorito;
+                updateDoc(docRef, {
+                    favorito: !togglefav
+                });
+          } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+          }
+    }
+
     const value = {
         usuarioID: state.usuarioID,
         contacto: state.contacto,
@@ -151,7 +169,8 @@ export const OneProvider = ({children}) => {
         logarUsuario,
         apagarContacto,
         editarContactoC,
-        sair
+        sair,
+        toggleFavorito
     }
 
     return <OneContexto.Provider value={value}>
