@@ -9,7 +9,6 @@ const CampoTexto = (props) => {
           className="p-3"
           placeholder={props.placeholder}
           placeholderTextColor="white"
-
       />
     </View>
   )

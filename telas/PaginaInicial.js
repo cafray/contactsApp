@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View, FlatList, SafeAreaView} from 'react-native'
+import { ScrollView, StyleSheet, Text, View, FlatList, SafeAreaView, TextInput} from 'react-native'
 import React, { useLayoutEffect, useState} from 'react'
 import CampoTexto from '../componentes/CampoTexto'
 import { Ionicons } from '@expo/vector-icons';
@@ -13,14 +13,25 @@ import useOne from '../servicos/OneContexto';
 const PaginaInicial = () => {
 
   const { contactos, listarContacto, toggleFavorito } = useOne();
-  //const [togglefav, setTogglefav] = useState();
+  const [filteredContactos, setFilteredContactos] = useState([]);
 
     const navigation = useNavigation();
 
     useLayoutEffect(() => {
        listarContacto();
-       // console.log(contactos);
+       setFilteredContactos(contactos);
+       console.log(filteredContactos);
      }, [contactos]);
+
+     const handlePesquisa = (text) =>{
+        console.log(text);
+        if(text){
+          const newData = contactos.filter((item)=>{
+            return item.nomeProprio.indexOf(text) > -1;
+          })
+          setFilteredContactos(newData);
+        }
+     }
 
   return (
     <SafeAreaView className="bg-[#111111] flex-1 pt-5 relative">
@@ -30,8 +41,10 @@ const PaginaInicial = () => {
         >
           <Ionicons name="menu" size={35} color="white" />
         </TouchableOpacity>
-         <View className="flex-1" >
-          <CampoTexto placeholder={`Teste`} handleInput={`Teste2`}/>
+         <View className="flex-1 justify-center">
+          <TextInput className="text-white" placeholder='Pesquisar' placeholderTextColor="white"
+            onChangeText = {(text) => handlePesquisa(text)}
+          />
          </View>
         <View className="flex-3 px-3 items-center justify-center">
         <Ionicons name="ios-person-circle-outline" size={35} color="white" />
@@ -39,7 +52,7 @@ const PaginaInicial = () => {
       </View>
       <View className="flex-1 relative">
         <FlatList 
-            data={contactos}
+            data={filteredContactos}
             numColumns= {1}
             renderItem={({item}) =><View className="flex-row justify-between">
               <TouchableOpacity
