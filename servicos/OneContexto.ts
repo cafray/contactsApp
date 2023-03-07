@@ -12,6 +12,16 @@ import oneReducer,{ initialState } from "./oneReducer";
 
 const OneContexto = createContext();
 
+type PropExterno = {
+    contacto: any,
+    usuario:any,
+    email:any,
+    nomeCompleto:any,
+    palavraPasse:any,
+    telefone:any,
+    id:any
+}
+
 export const OneProvider = ({children}) => {
 
     const [state, dispatch] = useReducer(oneReducer,initialState);
@@ -29,7 +39,7 @@ export const OneProvider = ({children}) => {
     }, []);
 
     
-    const registroUsuario = async (usuario) =>{
+    const registroUsuario = async (usuario:PropExterno) =>{
 
         const {email, nomeCompleto, palavraPasse} = usuario;
 
@@ -56,7 +66,7 @@ export const OneProvider = ({children}) => {
 
     }
 
-    const logarUsuario = async (usuario) => {
+    const logarUsuario = async (usuario:PropExterno) => {
 
         const {email, palavraPasse } = usuario;
 
@@ -70,7 +80,7 @@ export const OneProvider = ({children}) => {
 
     }
 
-    const adicionarContacto = (contacto) => {
+    const adicionarContacto = (contacto:PropExterno ) => {
         const { telefone } = contacto;
         const docRef = doc(db, "usuarios", state.usuarioID,"contactos", telefone);
        
@@ -105,7 +115,7 @@ export const OneProvider = ({children}) => {
         });
     }
 
-    const editarContactoC = async (contacto) => {
+    const editarContactoC = async (contacto:PropExterno) => {
         const { telefone } = contacto;
 
         console.log("Contacto editar:", contacto);
@@ -118,7 +128,7 @@ export const OneProvider = ({children}) => {
 
     }
 
-    const apagarContacto = async (contacto) => {
+    const apagarContacto = async (contacto:PropExterno) => {
 
         const { telefone } = contacto;
 
@@ -140,7 +150,7 @@ export const OneProvider = ({children}) => {
           });
     }
 
-    const toggleFavorito = async (id) =>{
+    const toggleFavorito = async (id:PropExterno) =>{
 
         console.log(id);
         const docRef = doc(db, "usuarios", state.usuarioID,"contactos", id);
